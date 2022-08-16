@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string-array name="categories">
+            <item>מזון</item>
+            <item>רכב</item>
+            <item>דלק</item>
+            <item>תחבורה</item>
+            <item>שכר דירה</item>
+            <item>קניות כללי</item>
+        </string-array>
+
+    <string-array name="food_subcategories">
+        <item>אוכל מהיר</item>
+        <item>סופרמרקט</item>
+        <item>מסעדה</item>
+    </string-array>
+    </resources>

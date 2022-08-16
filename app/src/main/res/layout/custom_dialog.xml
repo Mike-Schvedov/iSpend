@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:background="@drawable/custom_dialog_bg"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="48dp">
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/varela_round"
+        android:gravity="center"
+        android:text="@string/new_expense"
+
+        android:textColor="@color/purple_500"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+      android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="8dp"
+        android:background="@color/purple_700"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:gravity="center"
+        android:hint="@string/amount"
+android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:fontFamily="@font/varela_round"
+        android:inputType="number"
+        android:textSize="22sp"
+        android:textColorHint="@color/purple_200"
+        android:textStyle="bold"
+        android:background="@drawable/edittext_selector"
+        android:drawableStart="@drawable/shekel_icon"
+        android:autofillHints="" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            >
+
+            <RadioButton
+                android:id="@+id/btn_yes"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:clickable="true"
+                android:fontFamily="@font/varela_round"
+                android:layoutDirection="rtl"
+                android:text="@string/credit_radio"
+                android:buttonTint="@color/purple_500"
+                android:textColor="@color/purple_200"
+                android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/btn_no"
+
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:fontFamily="@font/varela_round"
+            android:layoutDirection="rtl"
+            android:text="@string/cash_radio"
+            android:buttonTint="@color/purple_500"
+
+            android:textColor="@color/purple_200"
+            android:textStyle="bold" />
+        </RadioGroup>
+
+
+
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layoutDirection="rtl"
+        android:hint="@string/category"
+        android:layout_height="wrap_content">
+
+
+        <AutoCompleteTextView
+            android:layoutDirection="rtl"
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+          />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layoutDirection="rtl"
+        android:layout_marginTop="16dp"
+        android:hint="@string/sub_category"
+        android:layout_height="wrap_content">
+
+
+        <AutoCompleteTextView
+
+            android:layoutDirection="rtl"
+            android:id="@+id/autoComplete_sub_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>
