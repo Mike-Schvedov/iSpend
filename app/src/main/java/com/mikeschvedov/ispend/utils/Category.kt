@@ -1,0 +1,10 @@
+package com.mikeschvedov.ispend.utils
+
+enum class Category {
+    FOOD_NORMAL, FOOD_JUNK,
+    FUEL, TRANSPORTATION, RENT,
+    SHOPPING_MAY, SHOPPING_CLEANING,
+    SHOPPING_OTHER, SHOPPING_CLOTHING,
+    CAR_MAINTENANCE, EVENTS,
+    ERROR
+}

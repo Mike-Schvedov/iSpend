@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
         <string-array name="categories">
-            <item>מזון</item>
-            <item>רכב</item>
+            <item>מזון - סופרמרקט</item>
+            <item>מזון - אוכל מהיר/שתייה</item>
             <item>דלק</item>
-            <item>תחבורה</item>
+            <item>תחבורה ציבורית</item>
             <item>שכר דירה</item>
-            <item>קניות כללי</item>
+            <item>קניות - מאי</item>
+            <item>קניות - שונות</item>
+            <item>ניקיון/טואלטיקה</item>
+            <item>בגדים</item>
+            <item>תחזוקת רכב</item>
+            <item>אירועים</item>
         </string-array>
 
-    <string-array name="food_subcategories">
-        <item>אוכל מהיר</item>
-        <item>סופרמרקט</item>
-        <item>מסעדה</item>
-    </string-array>
+
     </resources>

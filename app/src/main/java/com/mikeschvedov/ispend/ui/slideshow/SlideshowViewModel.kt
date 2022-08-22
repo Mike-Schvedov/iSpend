@@ -3,6 +3,7 @@ package com.mikeschvedov.ispend.ui.slideshow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 class SlideshowViewModel : ViewModel() {
 

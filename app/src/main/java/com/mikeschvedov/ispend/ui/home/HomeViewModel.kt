@@ -1,13 +1,23 @@
 package com.mikeschvedov.ispend.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mikeschvedov.ispend.data.Repository
+import com.mikeschvedov.ispend.data.database.entities.Expense
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+
+    fun saveNewExpenseInDB(expense: Expense){
+        viewModelScope.launch {
+            repository.saveNewExpenseInDB(expense)
+        }
     }
-    val text: LiveData<String> = _text
+
 }

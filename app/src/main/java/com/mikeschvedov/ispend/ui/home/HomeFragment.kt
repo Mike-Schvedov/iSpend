@@ -1,6 +1,8 @@
 package com.mikeschvedov.ispend.ui.home
 
 import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,35 +10,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mikeschvedov.ispend.R
+import com.mikeschvedov.ispend.data.database.entities.Expense
 import com.mikeschvedov.ispend.databinding.FragmentHomeBinding
-import org.w3c.dom.Text
+import com.mikeschvedov.ispend.utils.Category
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
-        binding.addExpenseFab.setOnClickListener {
+        binding.addNewExpenseFab.setOnClickListener {
             createDialog()
         }
 
@@ -50,6 +56,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun createDialog(){
+        // Creating a dialog
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.custom_dialog)
@@ -61,54 +68,104 @@ class HomeFragment : Fragment() {
         val categoryArray = resources.getStringArray(R.array.categories)
         // Setting up the category adapter
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdown_item, categoryArray)
+
         val inputLayout = dialog.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView)
         inputLayout.setAdapter(arrayAdapter)
 
-        var selectedCategory: String
-        var subInputLayout = AutoCompleteTextView(requireContext())
-        var subCategoryArray : Array<out String> = arrayOf()
+        var selectedCategory = ""
         // When we select a category
         inputLayout.onItemClickListener =
             AdapterView.OnItemClickListener { p0, p1, position, p3 ->
                 // Store the category selected
                 selectedCategory = categoryArray[position]
-                // Get sub-categories list based on selectedCategory
-                subCategoryArray = getSubcategory(selectedCategory)
-                // Setup the sub-category adapter
-                val subCategoryArrayAdapter = ArrayAdapter(requireContext(),R.layout.dropdown_item, subCategoryArray)
-                subInputLayout = dialog.findViewById(R.id.autoComplete_sub_category)
-                subInputLayout.setAdapter(subCategoryArrayAdapter)
-                 }
+                       }
 
-        // When we select a sub-category
-        var selectedSubCategory: String
-        subInputLayout.onItemClickListener =
-            AdapterView.OnItemClickListener { p0, p1, position, p3 ->
-                // Store the sub-category selected
-                selectedSubCategory = subCategoryArray[position]
-            };
-
-       /* val button = dialog.findViewById<TextView>(R.id.okay_text)
-        button.setOnClickListener {
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
+        // We want to hide the keyboard when clicking on the drop down menu
+        inputLayout.setOnFocusChangeListener { v, hasFocus ->
+         if (v != null){
+             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+             imm.hideSoftInputFromWindow(v.windowToken, 0)
+         }
         }
-        val cancelBTN = dialog.findViewById<TextView>(R.id.cancel_text)
+
+        val saveBTN = dialog.findViewById<TextView>(R.id.save_button)
+        saveBTN.setOnClickListener {
+
+            val description = dialog.findViewById<EditText>(R.id.description_edittext).text.toString()
+            val amount = dialog.findViewById<EditText>(R.id.amount_edittext).text.toString()
+            // Getting the category as an Enum
+            val categoryEnum = getCategoryEnum(selectedCategory)
+            // Getting the Dates
+            val calendar = Calendar.getInstance(TimeZone.getDefault())
+            val currentHour = calendar[Calendar.HOUR]
+            val currentYear = calendar[Calendar.YEAR]
+            val currentMonth = calendar[Calendar.MONTH] + 1
+            val currentDay = calendar[Calendar.DAY_OF_MONTH]
+
+            println("$currentHour | $currentDay | $currentMonth | $currentYear")
+
+            if(!description.isNullOrBlank() && !amount.isNullOrEmpty() && categoryEnum != Category.ERROR){
+                homeViewModel.saveNewExpenseInDB(Expense(
+                    description = description,
+                    amountSpent = amount.toInt(),
+                    category = categoryEnum,
+                    hour = currentHour,
+                    day = currentDay,
+                    month = currentMonth,
+                    year = currentYear
+                ))
+
+                dialog.dismiss()
+            }else{
+                showAlertDialog()
+            }
+
+
+        }
+
+        val cancelBTN = dialog.findViewById<TextView>(R.id.cancel_button)
         cancelBTN.setOnClickListener {
             dialog.dismiss()
-        }*/
+        }
 
         dialog.show()
     }
 
-    private fun getSubcategory(selectedCategory: String?): Array<out String> {
-
-        // Getting the sub-category string array list according to the category
+    fun getCategoryEnum(selectedCategory: String): Category {
         when(selectedCategory){
-            "מזון" -> return resources.getStringArray(R.array.food_subcategories)
-            else -> return arrayOf()
-
+        "מזון - סופרמרקט" -> return Category.FOOD_NORMAL
+        "מזון - אוכל מהיר/שתייה" -> return Category.FOOD_JUNK
+        "אירועים" -> return Category.EVENTS
+        "דלק" -> return Category.FUEL
+        "שכר דירה" -> return Category.RENT
+        "תחזוקת רכב" -> return Category.CAR_MAINTENANCE
+        "ניקיון/טואלטיקה" -> return Category.SHOPPING_CLEANING
+        "בגדים" -> return Category.SHOPPING_CLOTHING
+        "קניות - מאי" -> return Category.SHOPPING_MAY
+        "קניות - שונות" -> return Category.SHOPPING_OTHER
+        "תחבורה ציבורית" -> return Category.TRANSPORTATION
+        else -> return Category.ERROR
         }
-
     }
+
+    private fun showAlertDialog() {
+        // build alert dialog
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("אין להשאיר שדות רקים!")
+            .setCancelable(false)
+            .setNegativeButton("בסדר", DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+            })
+
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("אזהרה")
+        // show alert dialog
+        alert.show()
+    }
+
 
 }

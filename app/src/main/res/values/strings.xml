@@ -18,4 +18,6 @@
     <string name="category">קטגוריה</string>
     <string name="sub_category">תת-קטגוריה</string>
     <string name="amount">סכום</string>
+    <string name="cancel_btn">בטל</string>
+    <string name="save_btn">שמור</string>
 </resources>
