@@ -88,6 +88,17 @@ class HomeFragment : Fragment() {
          }
         }
 
+        // Getting the current dates to set in DatePicker
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val currentHour = calendar[Calendar.HOUR]
+        val currentYear = calendar[Calendar.YEAR]
+        val currentMonth = calendar[Calendar.MONTH] + 1
+        val currentDay = calendar[Calendar.DAY_OF_MONTH]
+
+        val datePicker = dialog.findViewById<DatePicker>(R.id.datePicker)
+
+        datePicker.updateDate(currentYear, currentMonth, currentDay)
+
         val saveBTN = dialog.findViewById<TextView>(R.id.save_button)
         saveBTN.setOnClickListener {
 
@@ -95,12 +106,10 @@ class HomeFragment : Fragment() {
             val amount = dialog.findViewById<EditText>(R.id.amount_edittext).text.toString()
             // Getting the category as an Enum
             val categoryEnum = getCategoryEnum(selectedCategory)
-            // Getting the Dates
-            val calendar = Calendar.getInstance(TimeZone.getDefault())
-            val currentHour = calendar[Calendar.HOUR]
-            val currentYear = calendar[Calendar.YEAR]
-            val currentMonth = calendar[Calendar.MONTH] + 1
-            val currentDay = calendar[Calendar.DAY_OF_MONTH]
+
+            val pickerDay = datePicker.dayOfMonth
+            val pickerMonth = datePicker.month
+            val pickerYear = datePicker.year
 
             println("$currentHour | $currentDay | $currentMonth | $currentYear")
 
@@ -110,16 +119,15 @@ class HomeFragment : Fragment() {
                     amountSpent = amount.toInt(),
                     category = categoryEnum,
                     hour = currentHour,
-                    day = currentDay,
-                    month = currentMonth,
-                    year = currentYear
+                    day = pickerDay,
+                    month = pickerMonth,
+                    year = pickerYear
                 ))
 
                 dialog.dismiss()
             }else{
                 showAlertDialog()
             }
-
 
         }
 
