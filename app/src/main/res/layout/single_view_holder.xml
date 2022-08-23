@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/edittext_bg"
+    android:id="@+id/item_layout"
+ >
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <TextView
+        android:id="@+id/description_txt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="רכבת לעבודה"
+        android:fontFamily="@font/varela_round"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:paddingHorizontal="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/amount_txt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="3400"
+        android:fontFamily="@font/varela_round"
+        android:gravity="center|center_vertical"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/category_txt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/varela_round"
+        android:gravity="center"
+        android:textColor="@color/purple_500"
+        android:textSize="14sp"
+        android:paddingHorizontal="16dp"
+        android:text="קניות - מזון"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+    app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
+
+    <TextView
+        android:id="@+id/date_txt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/varela_round"
+        android:gravity="center_vertical|end"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
+        android:paddingEnd="16dp"
+        android:text="22/8/2022"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

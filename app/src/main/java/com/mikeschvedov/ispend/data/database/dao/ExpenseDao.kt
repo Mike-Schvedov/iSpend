@@ -3,7 +3,9 @@ package com.mikeschvedov.ispend.data.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.mikeschvedov.ispend.data.database.entities.Expense
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExpenseDao {
@@ -11,8 +13,11 @@ interface ExpenseDao {
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun addExpense(expense: Expense)
 
-//        @Query("SELECT * FROM launch WHERE name LIKE '%' || :searchQuery || '%' ORDER BY name ASC ")
-//        fun getAllLaunchesOrderedByTitle(searchQuery: String): Flow<List<Launch>>
+        @Query("SELECT * FROM expense WHERE" +
+                " day LIKE '%' || :day || '%' AND" +
+                " month LIKE '%' || :month || '%' AND" +
+                " year LIKE '%' || :year || '%'")
+        fun getExpensesByDate(day: Int, month: Int, year: Int): Flow<List<Expense>>
 //
 //        @Query("SELECT * FROM launch WHERE name LIKE '%' || :searchQuery || '%' ORDER BY date_unix ASC")
 //        fun getAllLaunchesOrderedByDateASC(searchQuery: String): Flow<List<Launch>>

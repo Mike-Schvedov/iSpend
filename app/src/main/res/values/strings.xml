@@ -20,4 +20,18 @@
     <string name="amount">סכום</string>
     <string name="cancel_btn">בטל</string>
     <string name="save_btn">שמור</string>
+    <string name="shekel_symbol">₪</string>
+
+    <string name="food_normal_category">סופרמרקט - מזון</string>
+    <string name="food_junk_category">אוכל בחוץ/שתייה</string>
+    <string name="fuel_category">דלק</string>
+    <string name="transportation_category">תחבורה ציבורית</string>
+    <string name="rent_category">שכר דירה</string>
+    <string name="shopping_may_category">קניות - מאי</string>
+    <string name="shopping_clean_category">קניות - מוצרי ניקיון</string>
+    <string name="shopping_other_category">קניות - אחר</string>
+    <string name="shopping_clothing_category">קניות - בגדים</string>
+    <string name="car_maintenance_category">תחזוקת רכב</string>
+    <string name="events_category">אירועים</string>
+    <string name="search">Search</string>
 </resources>
