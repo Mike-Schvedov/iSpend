@@ -10,19 +10,28 @@ import com.mikeschvedov.ispend.R
 import com.mikeschvedov.ispend.data.database.entities.Expense
 import javax.inject.Inject
 
-class HomeRecyclerAdapter @Inject constructor(private val listener: OnItemClickListener) :
+class HomeRecyclerAdapter @Inject constructor(private val listener: IsListEmptyListener) :
         RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>() {
 
         var list: MutableList<Expense> = mutableListOf()
 
-        fun interface OnItemClickListener{
-            fun onItemClicked(
-                item: Expense
+        fun interface IsListEmptyListener{
+            fun onDataReady(
+                isEmpty: Boolean
             )
         }
 
         // add new data
         fun setNewData(newData: List<Expense>) {
+            // We send a callback to let the fragment know that
+            // the list is empty, and we can show the "nothing to show" textview
+            if(newData.isNullOrEmpty()){
+                println("is empty")
+                listener.onDataReady(true)
+            }else{
+                listener.onDataReady(false)
+
+            }
             // passing the new and old list into the callback
             val diffCallback = DiffUtilCallbackShips(list, newData)
             // we get the result
@@ -48,7 +57,7 @@ class HomeRecyclerAdapter @Inject constructor(private val listener: OnItemClickL
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
             return HomeViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.single_view_holder,
+                    R.layout.single_view_holder_home,
                     parent, false
                 )
             )

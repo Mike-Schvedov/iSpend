@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,9 +44,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        /* ViewModel */
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        /* Binding */
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -57,26 +60,52 @@ class HomeFragment : Fragment() {
         /* Initialize Main Date Picker */
         homeDatePicker = binding.datePickerHome
 
-        initializeDate()
+        /* onClickListeners */
+        onClickListeners()
 
+        /* Live Data Observers */
+        observers()
+
+        /* Other Methods */
+        initializeDate()
         populateDatePickerAtStart()
 
+        return root
+    }
+
+    private fun onClickListeners() {
         binding.searchButton.setOnClickListener{
             // Loading the expenses after picking another date
             populateRecyclerList()
         }
-
         binding.addNewExpenseFab.setOnClickListener {
             createDialog()
         }
+    }
 
-        return root
+    private fun observers() {
+        homeViewModel.isListEmpty.observe(viewLifecycleOwner){
+            hideRecyclerView(it)
+        }
+    }
+
+    private fun hideRecyclerView(b: Boolean) {
+        if (b){
+            println("making recycler invisible")
+            binding.recyclerview.visibility = View.INVISIBLE
+            binding.nothingToShowTextview.visibility = View.VISIBLE
+        }else{
+            println("making recycler visible")
+
+            binding.recyclerview.visibility = View.VISIBLE
+            binding.nothingToShowTextview.visibility = View.INVISIBLE
+        }
     }
 
     private fun populateRecyclerList() {
         homeViewModel.populateRecyclerList(
             homeDatePicker.dayOfMonth,
-            homeDatePicker.month,
+            homeDatePicker.month + 1,
             homeDatePicker.year)
     }
 
@@ -91,7 +120,7 @@ class HomeFragment : Fragment() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         currentHour = calendar[Calendar.HOUR]
         currentYear = calendar[Calendar.YEAR]
-        currentMonth = calendar[Calendar.MONTH] + 1
+        currentMonth = calendar[Calendar.MONTH]
         currentDay = calendar[Calendar.DAY_OF_MONTH]
     }
 
@@ -146,7 +175,7 @@ class HomeFragment : Fragment() {
             val categoryEnum = getCategoryEnum(selectedCategory)
 
             val pickerDay = dialogDatePicker.dayOfMonth
-            val pickerMonth = dialogDatePicker.month
+            val pickerMonth = dialogDatePicker.month + 1
             val pickerYear = dialogDatePicker.year
 
             println("$description | $amount | $categoryEnum")

@@ -18,6 +18,21 @@ interface ExpenseDao {
                 " month LIKE '%' || :month || '%' AND" +
                 " year LIKE '%' || :year || '%'")
         fun getExpensesByDate(day: Int, month: Int, year: Int): Flow<List<Expense>>
+
+
+        // Get all expenses that have this years, this month, and one of the valid days
+        @Query("SELECT * FROM expense WHERE" +
+                " day IN (:validDays) AND" +
+                " month LIKE '%' || :month || '%' AND" +
+                " year LIKE '%' || :year || '%'")
+        fun getExpensesByMonth(month: Int, year: Int, validDays: List<Int>): Flow<List<Expense>>
+
+
+        @Query("SELECT * FROM expense WHERE" +
+                " year LIKE '%' || :year || '%'")
+        fun getExpensesByYear(year: Int) : Flow<List<Expense>>
+
+
 //
 //        @Query("SELECT * FROM launch WHERE name LIKE '%' || :searchQuery || '%' ORDER BY date_unix ASC")
 //        fun getAllLaunchesOrderedByDateASC(searchQuery: String): Flow<List<Launch>>

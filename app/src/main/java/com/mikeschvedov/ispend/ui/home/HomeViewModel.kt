@@ -1,5 +1,7 @@
 package com.mikeschvedov.ispend.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikeschvedov.ispend.data.Repository
@@ -14,8 +16,12 @@ class HomeViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private var adapter = HomeRecyclerAdapter(){
+    private val _isListEmpty = MutableLiveData<Boolean>()
+    val isListEmpty: LiveData<Boolean> get() = _isListEmpty
 
+    private var adapter = HomeRecyclerAdapter(){
+        println("viewmodel isEmpty: $it")
+        _isListEmpty.postValue(it)
     }
 
     fun getRecyclerAdapter(): HomeRecyclerAdapter {

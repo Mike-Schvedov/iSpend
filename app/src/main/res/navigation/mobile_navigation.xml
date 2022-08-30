@@ -8,14 +8,14 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.mikeschvedov.ispend.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label=" תיעוד יומי                 "
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.mikeschvedov.ispend.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_reports"
+        android:name="com.mikeschvedov.ispend.ui.reports.ReportsFragment"
+        android:label=" דוחות                    "
+        tools:layout="@layout/fragment_reports" />
 
     <fragment
         android:id="@+id/nav_slideshow"

@@ -4,4 +4,11 @@
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
+    <!--  Used for the drawer styling -->
+    <style name="CustomTextStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/varela_round</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
 </resources>

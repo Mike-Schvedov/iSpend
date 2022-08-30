@@ -13,4 +13,10 @@
             <item>@string/shopping_clothing_category</item>
             <item>@string/shopping_other_category</item>
         </string-array>
+
+    <string-array name="monthly_reports">
+        <item>2022</item>
+        <item>15 אוגוסט - 15 ספטמבר</item>
+        <item>15 ספטמבר - 15 אוקטובר</item>
+    </string-array>
     </resources>
