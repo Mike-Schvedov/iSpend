@@ -8,6 +8,8 @@
             <item>@string/rent_category</item>
             <item>@string/car_maintenance_category</item>
             <item>@string/events_category</item>
+            <item>@string/parking_category</item>
+            <item>@string/animal_category</item>
             <item>@string/shopping_may_category</item>
             <item>@string/shopping_clean_category</item>
             <item>@string/shopping_clothing_category</item>
@@ -16,7 +18,7 @@
 
     <string-array name="monthly_reports">
         <item>2022</item>
-        <item>15 אוגוסט - 15 ספטמבר</item>
-        <item>15 ספטמבר - 15 אוקטובר</item>
+        <item>15 אוגוסט - 14 ספטמבר</item>
+        <item>15 ספטמבר - 14 אוקטובר</item>
     </string-array>
     </resources>

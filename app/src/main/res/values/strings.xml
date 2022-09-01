@@ -32,7 +32,12 @@
     <string name="shopping_other_category">קניות - אחר</string>
     <string name="shopping_clothing_category">קניות - בגדים</string>
     <string name="car_maintenance_category">תחזוקת רכב</string>
+    <string name="animal_category">חיות מחמד</string>
+    <string name="parking_category">חנייה</string>
     <string name="events_category">אירועים</string>
+
+
+
     <string name="search">חפש</string>
     <string name="nothing_to_show">אין מה להציג, נא לחפש תאריך אחר.</string>
     <string name="daily_drawer">תיעוד יומי</string>

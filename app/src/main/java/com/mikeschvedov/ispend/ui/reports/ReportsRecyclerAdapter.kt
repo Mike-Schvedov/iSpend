@@ -55,7 +55,7 @@ class ReportsRecyclerAdapter @Inject constructor() :
         // --- Setting the amount for entire category --- //
         holder.amount.text = "₪ ${item.totalSpent.toString()}"
 
-        if (item.category.equals("סה״כ")){
+        if (item.category == "סה״כ"){
             holder.categoryName.textSize = 22f
             holder.amount.textSize = 22f
         }

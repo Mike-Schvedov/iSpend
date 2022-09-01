@@ -216,14 +216,14 @@ class HomeFragment : Fragment() {
     }
 
     fun getCategoryEnum(selectedCategory: String): Category {
-        println("selected category: $selectedCategory")
-        println(Category.EVENTS.hebrew)
         return when(selectedCategory){
             Category.FOOD_NORMAL.hebrew -> Category.FOOD_NORMAL
             Category.FOOD_JUNK.hebrew -> Category.FOOD_JUNK
             Category.EVENTS.hebrew -> Category.EVENTS
             Category.FUEL.hebrew -> Category.FUEL
             Category.RENT.hebrew -> Category.RENT
+            Category.PARKING.hebrew -> Category.PARKING
+            Category.PETS.hebrew -> Category.PETS
             Category.CAR_MAINTENANCE.hebrew -> Category.CAR_MAINTENANCE
             Category.SHOPPING_CLEANING.hebrew -> Category.SHOPPING_CLEANING
             Category.SHOPPING_CLOTHING.hebrew -> Category.SHOPPING_CLOTHING
