@@ -20,7 +20,7 @@ class Repository @Inject constructor(
         return expenseDao.getExpensesByDate(day, month, year)
     }
 
-    fun getExpensesByYearFromDB(year:Int): Flow<List<Expense>> {
+    fun getExpensesByYearFromDB(year:Int): Flow<MutableList<Expense>> {
         return expenseDao.getExpensesByYear(year)
     }
 

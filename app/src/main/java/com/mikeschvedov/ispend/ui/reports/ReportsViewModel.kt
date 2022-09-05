@@ -3,6 +3,7 @@ package com.mikeschvedov.ispend.ui.reports
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikeschvedov.ispend.data.Repository
+import com.mikeschvedov.ispend.data.database.entities.Expense
 import com.mikeschvedov.ispend.models.Report
 import com.mikeschvedov.ispend.utils.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +33,7 @@ class ReportsViewModel @Inject constructor(
     private fun getExpensesByYear(year: Int) {
         viewModelScope.launch {
             repository.getExpensesByYearFromDB(year).collect { listOfExpenses ->
-                println("These are the expenses by year $year : $listOfExpenses")
+                createReportWithCategories(listOfExpenses)
             }
         }
     }
@@ -41,52 +42,59 @@ class ReportsViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getExpensesBetweenTwoMonths(firstMonth, secondMonth, year)
                 .collect { listOfExpenses ->
-                    // Holder for all categories in these dates
-                    val listOfExistingCategories = mutableSetOf<Category>()
-                    // Getting all categories
-                    listOfExpenses.forEach {
-                        listOfExistingCategories.add(it.category)
-                    }
-
-                    println("These are the categories: $listOfExistingCategories \n")
-
-                    // All Report Objects
-                    val listOfReports = mutableListOf<Report>()
-                    var totalSpent = 0
-
-                    // ---- Creating a Report for each category ---- //
-                    listOfExistingCategories.forEach { category->
-                        var amountSpent = 0
-                        // Sum all the money spend in this category
-                        listOfExpenses.forEach {
-                            if(it.category == category){
-                                amountSpent += it.amountSpent
-                                totalSpent += it.amountSpent
-                            }
-                        }
-
-                        val newReport = Report(
-                            category = category.hebrew,
-                            totalSpent = amountSpent,
-                            0
-                        )
-
-                        listOfReports.add(newReport)
-                    }
-
-                    // Adding the TOTAL report
-                    listOfReports.sortByDescending { it.totalSpent }
-
-                    listOfReports.add(Report(
-                        "סה״כ",
-                        totalSpent,
-                        0
-                    ))
-
-                    // Populating the recycler list
-                    adapter.setNewData(listOfReports)
+                    createReportWithCategories(listOfExpenses)
                 }
         }
     }
 
+    private fun createReportWithCategories(listOfExpenses: MutableList<Expense>) {
+        // Holder for all categories in these dates
+        val listOfExistingCategories = mutableSetOf<Category>()
+        // Getting all categories
+        listOfExpenses.forEach {
+            listOfExistingCategories.add(it.category)
+        }
+
+        println("These are the categories: $listOfExistingCategories \n")
+
+        // All Report Objects
+        val listOfReports = mutableListOf<Report>()
+        var totalSpent = 0
+
+        // ---- Creating a Report for each category ---- //
+        listOfExistingCategories.forEach { category ->
+            var amountSpent = 0
+            // Sum all the money spend in this category
+            listOfExpenses.forEach {
+                if (it.category == category) {
+                    amountSpent += it.amountSpent
+                    totalSpent += it.amountSpent
+                }
+            }
+
+            val newReport = Report(
+                category = category.hebrew,
+                totalSpent = amountSpent,
+                0
+            )
+
+            listOfReports.add(newReport)
+        }
+
+        // Adding the TOTAL report
+        listOfReports.sortByDescending { it.totalSpent }
+
+        listOfReports.add(
+            Report(
+                "סה״כ",
+                totalSpent,
+                0
+            )
+        )
+
+        // Populating the recycler list
+        adapter.setNewData(listOfReports)
+    }
+
 }
+

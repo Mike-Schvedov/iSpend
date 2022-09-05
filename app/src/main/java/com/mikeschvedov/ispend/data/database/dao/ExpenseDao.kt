@@ -30,7 +30,7 @@ interface ExpenseDao {
 
         @Query("SELECT * FROM expense WHERE" +
                 " year LIKE '%' || :year || '%'")
-        fun getExpensesByYear(year: Int) : Flow<List<Expense>>
+        fun getExpensesByYear(year: Int) : Flow<MutableList<Expense>>
 
 
 //

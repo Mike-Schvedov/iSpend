@@ -21,6 +21,7 @@
         android:id="@+id/text_input_reports"
         android:layoutDirection="rtl"
         android:layout_margin="8dp"
+        android:gravity="center"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/purple_500"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:inputType="none"
             android:layoutDirection="rtl"
             />

@@ -74,10 +74,6 @@ class ReportsFragment : Fragment() {
 
         // Create Report
         binding.createReportBtn.setOnClickListener {
-
-            println("selected month: $selectedMonth") /////// ---------- REMOVE AFTER TESTING
-            println("selected position/id: $selectedPosition") /////// ---------- REMOVE AFTER TESTING
-
             reportsViewModel.createReport(selectedPosition)
         }
     }
