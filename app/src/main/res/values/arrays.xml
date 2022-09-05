@@ -14,6 +14,7 @@
             <item>@string/shopping_clean_category</item>
             <item>@string/shopping_clothing_category</item>
             <item>@string/shopping_other_category</item>
+            <item>@string/game_category</item>
         </string-array>
 
     <string-array name="monthly_reports">

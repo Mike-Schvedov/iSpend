@@ -16,5 +16,6 @@ enum class Category(val hebrew: String) {
     EVENTS(R.string.events_category.resourceToString()),
     PETS(R.string.animal_category.resourceToString()),
     PARKING(R.string.parking_category.resourceToString()),
+    GAME(R.string.game_category.resourceToString()),
     ERROR("שגיאה"),
 }

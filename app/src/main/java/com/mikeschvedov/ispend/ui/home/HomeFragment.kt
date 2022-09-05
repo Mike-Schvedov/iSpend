@@ -230,6 +230,7 @@ class HomeFragment : Fragment() {
             Category.SHOPPING_MAY.hebrew -> Category.SHOPPING_MAY
             Category.SHOPPING_OTHER.hebrew -> Category.SHOPPING_OTHER
             Category.TRANSPORTATION.hebrew -> Category.TRANSPORTATION
+            Category.GAME.hebrew -> Category.GAME
             else -> Category.ERROR
         }
     }
