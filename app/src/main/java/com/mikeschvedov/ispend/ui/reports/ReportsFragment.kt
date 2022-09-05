@@ -48,6 +48,11 @@ class ReportsFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupSpinner()
+    }
+
     private fun setupSpinner() {
         // Array of months
         val monthsArray = resources.getStringArray(R.array.monthly_reports)
